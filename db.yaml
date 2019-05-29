@@ -1,0 +1,8 @@
+dbs:
+  - host: 172.22.1.13
+    dbName: hml_pdv
+    port: 5432
+    user: pdv-va-app
+    pass: 123456
+server:
+  port: 8080
