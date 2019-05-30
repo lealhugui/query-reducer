@@ -19,11 +19,12 @@ type ServerConfig struct {
 
 //DbConfig is a single DataBase connection config
 type DbConfig struct {
-	Host   string
-	DbName string
-	Port   string
-	User   string
-	Pass   string
+	ConnectionName string
+	Host           string
+	DbName         string
+	Port           string
+	User           string
+	Pass           string
 }
 
 func loadCfgFromDisk() ([]byte, error) {

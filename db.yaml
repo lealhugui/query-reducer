@@ -1,6 +1,7 @@
 dbs:
-  - host: 172.22.1.13
-    dbName: hml_pdv
+  - name: hml_pdv@172.22.1.13
+    host: 172.22.1.13
+    dbname: hml_pdv
     port: 5432
     user: pdv-va-app
     pass: 123456
