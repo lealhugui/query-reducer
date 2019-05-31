@@ -34,10 +34,7 @@ func StartRouter(cfg config.ServerConfig) {
 	r.Use(loggingMiddleware)
 
 	go func() {
-		err := http.ListenAndServe(fmt.Sprintf(":%d", cfg.Port), r)
-		if err != nil {
-			panic(err)
-		}
+		log.Error(http.ListenAndServe(fmt.Sprintf(":%d", cfg.Port), r))
 	}()
 
 	log.Info(fmt.Sprintf("Server Started on Port:%d", cfg.Port))
