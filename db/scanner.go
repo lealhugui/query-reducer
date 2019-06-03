@@ -1,6 +1,8 @@
 package db
 
-import "time"
+import (
+	"time"
+)
 
 type GenericScanner struct {
 	valid bool
@@ -32,9 +34,10 @@ func (scanner *GenericScanner) Scan(src interface{}) error {
 			scanner.valid = true
 		}
 	case string:
-		value := scanner.getBytes(src)
-		scanner.value = string(value)
+		value := src.(string)
+		scanner.value = value
 		scanner.valid = true
+
 	case []byte:
 		value := scanner.getBytes(src)
 		scanner.value = value

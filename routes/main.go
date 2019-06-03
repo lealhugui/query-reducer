@@ -24,12 +24,14 @@ func loggingMiddleware(next http.Handler) http.Handler {
 	})
 }
 
+
 //StartRouter starts the main route server
 func StartRouter(cfg config.ServerConfig) {
 
 	log.Info(fmt.Sprintf("Starting Server..."))
 
 	r := mux.NewRouter()
+	r.HandleFunc("/query", QueryHandler)
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))
 	r.Use(loggingMiddleware)
 

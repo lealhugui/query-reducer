@@ -14,3 +14,13 @@ body header {
     float: none;
     margin: 0 auto;
 }
+
+#records {
+    border: 1px solid black;
+}
+
+#queryText {
+    width: 50%;
+    min-width: 100px;
+    min-height: 100px;
+}
