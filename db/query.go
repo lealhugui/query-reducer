@@ -3,6 +3,7 @@ package db
 import (
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/jmoiron/sqlx"
 	"github.com/lealhugui/query-reducer/config"
@@ -80,6 +81,7 @@ type queryChanResult struct {
 //Query is the main method for querying data over a set of dbs
 func (ctr Controller) Query(sql string) (result map[string]interface{}, e error) {
 	queryResults := make(chan queryChanResult, len(ctr.Connections))
+	start := time.Now()
 	for _, conn := range ctr.Connections {
 		go conn.queryAsync(sql, queryResults)
 	}
@@ -94,6 +96,7 @@ func (ctr Controller) Query(sql string) (result map[string]interface{}, e error)
 			break
 		}
 	}
+	log.Warn(">>>>>", time.Since(start))
 	return result, e
 }
 

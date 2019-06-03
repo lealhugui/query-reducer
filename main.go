@@ -11,9 +11,14 @@ import (
 
 func main() {
 	cfg := config.GetConfig()
+	log.Infof("Starting dbInstance...")
+	_, err := db.New(cfg.DbConfigs)
+	if err != nil {
+		panic(err)
+	}
+	log.Infof("dbInstance started...")
 	routes.StartRouter(cfg.Server)
 
-	_, err := db.New(cfg.DbConfigs)
 	if err != nil {
 		log.Error(err)
 	} /*

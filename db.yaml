@@ -1,21 +1,9 @@
 dbs:
-  - name: hml_pdv@172.22.1.13
-    host: 172.22.1.13
-    dbname: hml_pdv
+  - name: ConnName
+    host: localhost
+    dbname: db
     port: 5432
-    user: pdv-va-app
-    pass: 123456
-  - name: what@172.22.6.19
-    host: 172.22.6.19
-    dbname: prd
-    port: 5432
-    user: pdv-va-app
-    pass: 123456
-  - name: cliqq@172.22.1.13
-    host: 172.22.1.13
-    dbname: dev
-    port: 5432
-    user: pdv-va-app
+    user: user
     pass: 123456
 server:
   port: 8080
