@@ -20,7 +20,6 @@ type ConnInstance struct {
 	Conn *sqlx.DB
 }
 
-//Query is the main method for querying data
 func (c ConnInstance) query(sql string) ([]map[string]interface{}, error) {
 	rows, err := c.Conn.Query(sql)
 	if err != nil {

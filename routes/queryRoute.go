@@ -2,17 +2,20 @@ package routes
 
 import (
 	"encoding/json"
+	"net/http"
+
 	"github.com/lealhugui/query-reducer/aggregator"
 	"github.com/lealhugui/query-reducer/db"
 	"github.com/prometheus/common/log"
-	"net/http"
 )
 
+//QueryRequestPayload is the payload definition for the "/query" route
 type QueryRequestPayload struct {
 	QueryText string
 }
 
-func QueryHandler (resp http.ResponseWriter, req *http.Request) {
+//QueryHandler is the handler for the "/query" route
+func QueryHandler(resp http.ResponseWriter, req *http.Request) {
 	decoder := json.NewDecoder(req.Body)
 	var qReq QueryRequestPayload
 	if err := decoder.Decode(&qReq); err != nil {
