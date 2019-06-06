@@ -18,7 +18,6 @@ function query() {
       
       for (r of data) {
         line = ""
-        console.log(r)
         for (k of columns) {
           line += `<td>${r[k]}</td>`
         }

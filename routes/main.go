@@ -24,7 +24,6 @@ func loggingMiddleware(next http.Handler) http.Handler {
 	})
 }
 
-
 //StartRouter starts the main route server
 func StartRouter(cfg config.ServerConfig) {
 

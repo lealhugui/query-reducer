@@ -15,8 +15,14 @@ body header {
     margin: 0 auto;
 }
 
+#output {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 #exec {
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-bottom: 8px;
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -24,5 +30,10 @@ body header {
 }
 
 #records {
+    font-size: 8;
     border: 1px solid black;
+}
+
+#records td, th {
+    font-size: small
 }
