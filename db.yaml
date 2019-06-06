@@ -1,7 +1,7 @@
 dbs:
   - name: myConn
     host: 172.22.1.13
-    dbname: hml_pdv
+    dbname: dev
     port: 5432
     user: pdv-va-app
     pass: 123456
