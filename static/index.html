@@ -1,82 +1,62 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>query-reducer</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>query-reducer</title>
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/main.css">
-
+  <script src="/js/vendor/codemirror-5.47.0/lib/codemirror.js"></script>
+  <link rel="stylesheet" href="/js/vendor/codemirror-5.47.0/lib/codemirror.css">
+  <link rel="stylesheet" href="/js/vendor/codemirror-5.47.0/theme/monokai.css">
+  <script src="/js/vendor/codemirror-5.47.0/mode/sql/sql.js"></script>
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
 </head>
 <body>
-<header>
+  <header>
     <div class="d-flex justify-content-center">
-        <div>
-            <h1>query-reducer</h1>
-        </div>
+      <div>
+        <h1>query-reducer</h1>
+      </div>
     </div>
-
-</header>
-<div>
-    <div>
-        <textarea cols="100" id="queryText">SELECT current_timestamp as "current time"</textarea>
+    
+  </header>
+  <div>
+    <div id="codeEditor">
+      <textarea id="queryText" name="queryText">select current_timestamp;</textarea>
     </div>
-
-    <button onclick="query()">Query!</button>
-
-</div>
-<div class="output">
+    <button type="button" class="btn btn-primary" id="exec" onclick="query()">Execute</button>
+    
+  </div>
+  <div class="output">
     <table class="table" id="records">
-        <tr></tr>
+      <tr></tr>
     </table>
-</div>
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-        
-
-<script>
-  function query() {
-    $.when($.ajax({
-      url: "/query",
-      type: "POST",
-      dataType: "json",
-      data: JSON.stringify({queryText: $('#queryText').val()}),
-      contentType: "application/json"
-    })).then(function (data) {
-      console.log(data)
-      $("#records").html(`
-                <tr></tr>
-                `);
-
-      const firstRec = data[0];
-      const columns = Object.keys(firstRec)
-      let line = "";
-      for (k of columns) {
-        line += `<td>${k.toUpperCase()}</td>`
-      }
-      $("#records tr:last").after(`<tr class="header">${line}</tr>`);
-
-      for (r of data) {
-        line = ""
-        console.log(r)
-        for (k of columns) {
-          line += `<td>${r[k]}</td>`
-        }
-        $("#records tr:last").after(`<tr>${line}</tr>`);
-      }
-    });
-  }
-</script>
+  </div>
+  
+  
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+  crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+  crossorigin="anonymous"></script>
+  <script src="/js/main.js"></script>
+  <script>
+      var codeEditor = CodeMirror.fromTextArea(
+        document.getElementById("queryText"), {
+          lineNumbers:true,
+          theme: "monokai",
+          mode: "sql",
+        });
+  </script>
+  
 </body>
 </html>

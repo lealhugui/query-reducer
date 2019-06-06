@@ -19,7 +19,7 @@ type ServerConfig struct {
 
 //DbConfig is a single DataBase connection config
 type DbConfig struct {
-	ConnectionName string
+	ConnectionName string `yaml:"name"`
 	Host           string
 	DbName         string
 	Port           string

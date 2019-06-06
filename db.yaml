@@ -1,9 +1,9 @@
 dbs:
-  - name: ConnName
-    host: localhost
-    dbname: db
+  - name: myConn
+    host: 172.22.1.13
+    dbname: hml_pdv
     port: 5432
-    user: user
+    user: pdv-va-app
     pass: 123456
 server:
   port: 8080
