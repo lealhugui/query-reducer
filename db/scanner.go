@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+//GenericScanner is a custom db column value scanner
 type GenericScanner struct {
 	valid bool
 	value interface{}
@@ -16,6 +17,7 @@ func (scanner *GenericScanner) getBytes(src interface{}) []byte {
 	return nil
 }
 
+//Scan returns the db column value converted for the language corresponding type
 func (scanner *GenericScanner) Scan(src interface{}) error {
 	switch src.(type) {
 	case int64:
