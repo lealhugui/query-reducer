@@ -17,7 +17,7 @@ func (scanner *GenericScanner) getBytes(src interface{}) []byte {
 	return nil
 }
 
-//Scan returns the db column value converted for the language corresponding type
+//Scan returns the db column value converted for the language's corresponding type
 func (scanner *GenericScanner) Scan(src interface{}) error {
 	switch src.(type) {
 	case int64:
