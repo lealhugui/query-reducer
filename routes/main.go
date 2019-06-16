@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gorilla/mux"
+	"github.com/gin-contrib/static"
+	"github.com/gin-gonic/gin"
 	"github.com/lealhugui/query-reducer/config"
 	"github.com/prometheus/common/log"
 )
@@ -29,13 +30,19 @@ func StartRouter(cfg config.ServerConfig) {
 
 	log.Info(fmt.Sprintf("Starting Server..."))
 
-	r := mux.NewRouter()
-	r.HandleFunc("/query", QueryHandler)
-	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))
-	r.Use(loggingMiddleware)
+	r := gin.Default()
+	r.Use(static.Serve("/", static.LocalFile("./static/", false)))
+	r.POST("/query", QueryHandler)
+
+	/*
+		r := mux.NewRouter()
+		r.HandleFunc("/query", QueryHandler)
+		r.PathPrefix("/").Handler(http.FileServer(http.Dir("./static/")))
+		r.Use(loggingMiddleware)
+	*/
 
 	go func() {
-		log.Error(http.ListenAndServe(fmt.Sprintf(":%d", cfg.Port), r))
+		log.Error(r.Run(fmt.Sprintf(":%d", cfg.Port)))
 	}()
 
 	log.Info(fmt.Sprintf("Server Started on Port:%d", cfg.Port))
