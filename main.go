@@ -9,26 +9,33 @@ import (
 	"github.com/prometheus/common/log"
 )
 
-func main() {
-	cfg := config.GetConfig()
+var cfg config.AppConfig
+
+func initCfg() {
+	cfg = config.GetConfig()
+}
+
+func initDb() {
 	log.Infof("Starting dbInstance...")
 	_, err := db.New(cfg.DbConfigs)
 	if err != nil {
 		panic(err)
 	}
 	log.Infof("dbInstance started...")
+}
+
+func initServer() {
 	routes.StartRouter(cfg.Server)
+}
 
-	if err != nil {
-		log.Error(err)
-	} /*
-		else {
-			qResult, _ := ctr.Query("select chave, valor from \"pdv-va\".parametro limit 3")
-			//fmt.Printf("%# v", pretty.Formatter(aggregator.AggregateResultSet(qResult)))
-			encoder.ResultSetEncoder(aggregator.AggregateResultSet(qResult))
-		}
-	*/
+func init() {
+	initCfg()
+}
 
+func main() {
+	initDb()
+	initServer()
+	//wait forever
 	for {
 		time.Sleep(100 * time.Millisecond)
 	}
