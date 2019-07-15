@@ -4,8 +4,7 @@ func flatenRecord(connName string, record *map[string]interface{}) {
 	(*record)["origin"] = connName
 }
 
-/**
-AggregateResultSet aggregates a series of resultsets.
+/*AggregateResultSet aggregates a series of resultsets.
 It expects a map where the key is the origin, and the value a slice of map[string]interface{}
 The return value is the slice of map[string]interface{} with the key "origin" injected on each item
 */
